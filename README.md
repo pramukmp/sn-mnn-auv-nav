@@ -1,0 +1,1 @@
+#### Spectrally Normalized Memory Neural Network (SN-MNN) based navigation for Autonomous underwater vehicles in DVL-denied environment
