@@ -66,9 +66,9 @@ def VAF(true, predicted, LS):
 
 
 ################## DNN ##################
-neeta=0.0001
-neeta_dash=0.000001
-lipschitz_constant = 1.0
+neeta=0.0012
+neeta_dash=0.0005
+lipschitz_constant = 1.2
 epochs = 50
 pred_list=[]
 
@@ -164,8 +164,7 @@ try:
 
             # print(pred,Z[i-1,:])
             if(epoch>45):
-                pred_list.append(pred)
-    
+                pred_list.append(pred)   
             
             error_sum += mnn.squared_error
             rmse_sum+=mnn.rmse
@@ -205,21 +204,21 @@ finally:
         plt.figure(2)
         plt.plot(dfpred[0])
         plt.plot(Z[:,0])
-        plt.legend(['predicted x','true x'])
+        plt.legend(['predicted y','true y'])
         plt.xlabel("Time");plt.ylabel("Predcition and Desired speed(x component) (m/s)")
 
         plt.figure(3)
         plt.plot(dfpred[1])
         plt.plot(Z[:,1])
         plt.title("Predcition and Desired output(y component) vs Time")
-        plt.legend(['predicted x','true x'])
+        plt.legend(['predicted y','true y'])
         plt.xlabel("Time");plt.ylabel("Predcition and Desired speed(x component) (m/s)")
 
         plt.figure(4)
         plt.plot(dfpred[2])
         plt.plot(Z[:,2])
         plt.title("Predcition and Desired output (z component) vs Time")
-        plt.legend(['predicted x','true x'])
+        plt.legend(['predicted z','true z'])
         plt.xlabel("Time");plt.ylabel("Predcition and Desired speed(x component) (m/s)")
 
         #plt.savefig("trained_models/loss_" + str(neeta) + "_" + str(neeta_dash) + "_" + str(epochs) + ".eps", format="eps", dpi=1000)

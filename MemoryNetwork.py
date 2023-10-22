@@ -66,8 +66,8 @@ class MemoryNeuralNetwork:
 
     def backprop(self, y_des):
         self.y_des = copy.deepcopy(y_des)
-        self.squared_error=mean_squared_error(self.y_des,self.output_nn)
-        self.rmse=np.sqrt(self.squared_error)
+        self.squared_error=mean_squared_error(self.y_des,self.output_nn,squared=False)
+        self.rmse=self.squared_error
         #Calculate squared error loss
         #self.squared_error = np.sum((self.output_nn - self.y_des) ** 2)
         self.error_last_layer = (self.output_nn - self.y_des) * self.output_layer_activation_function_derivative(self.input_to_last_layer_nn)
