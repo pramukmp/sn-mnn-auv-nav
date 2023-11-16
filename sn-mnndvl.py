@@ -66,21 +66,23 @@ def VAF(true, predicted, LS):
 
 
 ################## DNN ##################
-neeta=1e-5
-neeta_dash=5e-7
-lipschitz_constant = 1.0
-epochs = 50
+neeta=1e-3
+neeta_dash=5e-4
+lipschitz_constant = 1.2
+epochs = 70
 pred_list=[]
 
-mnn = MemoryNeuralNetwork(10, 100, 3, neeta=neeta, neeta_dash=neeta_dash, lipschitz_norm=lipschitz_constant, spectral_norm=True)
+mnn = MemoryNeuralNetwork(10, 50, 3, neeta=neeta, neeta_dash=neeta_dash, lipschitz_norm=lipschitz_constant, spectral_norm=True) 
+# Inputs - 4 beams, 3 accelero, 3 gyro, 
+# Hidden neurons - 100
 
 ################# MAIN ################
 
 # load
 path = os.getcwd()
 path = os.path.abspath(os.path.join(path, os.pardir))
-IMU_in = load('sn-mnn-auv-nav/dataset/TrainAndValidation')
-V = load('sn-mnn-auv-nav/dataset/TrainAndValidation/V.npy')
+IMU_in = load('/home/airl/auvnav/sn-mnn-auv-nav/dataset/TrainAndValidation/IMU_in.npy')
+V = load('/home/airl/auvnav/sn-mnn-auv-nav/dataset/TrainAndValidation/V.npy')
 
 # DVL speed to beams  - pitch=20 deg eqn 4 substitution from paper
 b1 = np.array([cos((45 + 0 * 90) * np.pi / 180) * sin(20 * np.pi / 180),
@@ -101,21 +103,21 @@ for i in range(0, len(V[0, :])):
 beams_noise = beams + (0.042 ** 2) * np.random.randn(len(V[0, :]), 4) + \
               0.001 * np.ones((len(V[0, :]), 4))
 
-T = 100
+T = 100 # Sampling rate IMU - 100Hz, DVL - 1Hz
 X_gyro = np.zeros((len(IMU_in[0, :, 0]) // T, 3))
 X_acc = np.zeros((len(IMU_in[0, :, 0]) // T, 3))
 Y = np.zeros((len(IMU_in[0, :, 0]) // T, 4))
 Z = np.zeros((len(IMU_in[0, :, 0]) // T, 3))
 
-n = 0
+n = 0 
 V = V.T
 
 for t in range(0, len(IMU_in[0, :, 0]) - 1, T):
     X_acc[n, :] = IMU_in[:, t, 0]
     X_gyro[n, :] = IMU_in[:, t, 1]
     y = beams_noise[n, :]
-    Y[n, :] = y
-    z = V[n, :]
+    Y[n, :] = y # DVL
+    z = V[n, :] # velocities target variable
     Z[n, :] = z
     n = n + 1
 #print(Y)
@@ -176,7 +178,7 @@ except Exception as e:
     print(e)    
 
 finally:
-    save_path='sn-mnn-auv-nav/trained_models_mnn/sn-mnn.obj'
+    save_path='/home/airl/auvnav/sn-mnn-auv-nav/trained_models_mnn/sn-mnn.obj'
     if not unstable_flag:
         print("Done! saving model as " + save_path + " ...")
 
@@ -216,5 +218,9 @@ finally:
         plt.show()
     else:
         print("Network Unstable! Quitting...")
+
+
+
+
 
 

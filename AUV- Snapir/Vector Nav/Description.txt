@@ -1,0 +1,8 @@
+VectorNav:
+
+Time: (Time) , unit : (sec) , sampling rate : (40 Hz)
+
+Accelerometers :  Specific force (LinearAcceleration.X , LinearAcceleration.Y, LinearAcceleration.Z) , unit : (m/sec^2) , sampling rate :  (40 Hz)
+
+Gyroscopes: (AngularVelocity.X , AngularVelocity.Y, AngularVelocity.Z) , unit : (rad/sec) , sampling rate :  (40 Hz)
+

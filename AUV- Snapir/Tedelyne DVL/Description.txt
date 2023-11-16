@@ -1,0 +1,12 @@
+Teledyne DVL:
+
+Time: (Time) , unit : (sec) , sampling rate : (1 Hz)
+
+Velocity : (u speed [m/sec]  , v speed [m/sec] , w speed [m/sec] Error [m/s]) , unit : (m/sec) , sampling rate :  (1 Hz)
+
+
+
+GT:
+
+
+Position : (Latitude, Longitute) , unit : (degree) , sampling rate : (1 Hz)
