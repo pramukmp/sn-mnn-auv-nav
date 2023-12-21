@@ -5,7 +5,7 @@ from sklearn.metrics import mean_squared_error
 
 
 class MemoryNeuralNetwork(nn.Module):
-    def __init__(self, number_of_input_neurons=2, number_of_hidden_neurons=6, number_of_output_neurons=2, neeta=4e-5, neeta_dash=4e-5, lipschitz_norm=1.0, spectral_norm=False, seed_value=16981):
+    def __init__(self, number_of_input_neurons=10, number_of_hidden_neurons=50, number_of_output_neurons=3, neeta=4e-5, neeta_dash=4e-5, lipschitz_norm=1.0, spectral_norm=False, seed_value=16981):
         super(MemoryNeuralNetwork, self).__init__()
 
         torch.manual_seed(seed_value)
